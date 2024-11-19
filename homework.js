@@ -17,18 +17,6 @@ function checkPrototypeChain(obj) {
     return count;
 }
 
-let obj = {
-    a: 1,
-    b: {
-        c: 2,
-    },
-}
-
-let obj1 = Object.create(obj);
-
-let obj2 = Object.create(null);
-
-// console.log(checkPrototypeChain(obj1));
 
 function analyzeSparseArray(arr) {
     let map = new Map();
@@ -52,7 +40,7 @@ function analyzeSparseArray(arr) {
     return map;
 }
 
-let arr = [1, , undefined, , null, , undefined, null, NaN, 0];
+// let arr = [1, , undefined, , null, , undefined, null, NaN, 0];
 
 
 // console.log(analyzeSparseArray(arr));
