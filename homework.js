@@ -130,3 +130,126 @@ function deepDiffChecker(obj1, obj2) {
 
     return res;
 }
+
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    constructor() {
+        this.head = null;
+        this.size = 0;
+    }
+
+    append(value) {
+        let newNode = new Node(value);
+
+        if (!this.head) {
+            this.head = newNode;
+        } else {
+            let current = this.head;
+            while (current.next) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+        ++this.size;
+    };
+
+    prepend(value) {
+        let newNode = new Node(value);
+        // if (!this.head) {
+        //     this.head = newNode;
+        // }
+        newNode.next = this.head;
+        this.head = newNode;
+        ++this.size;
+    };
+
+    removeByValue(value) {
+        if (!this.head) {
+            return;
+        }
+
+        if (this.head.value === value) {
+            this.head = this.head.next;
+            --this.size;
+            return;
+        }
+
+        let current = this.head;
+        while (current.next && current.next.value !== value) {
+            current = current.next;
+        }
+        if (current.next) {
+            current.next = current.next.next;
+            --this.size;
+        }
+    };
+
+    removeByIndex(index) {
+        if (index < 0 || index >= this.size) {
+            return;
+        }
+        if (index === 0) {
+            this.head = this.head.next;
+            --this.size;
+            return;
+        }
+
+        let current = this.head;
+        for (let i = 0; i < index - 1; ++i) {
+            current = current.next;
+        }
+
+        if (current.next) {
+            current.next = current.next.next;
+            --this.size;
+        }
+
+    };
+
+    search(value) {
+        let current = this.head;
+        while (current) {
+            if (current.value === value) {
+                return current;
+            }
+            current = current.next;
+        }
+
+        return null;
+    }
+
+    insert(value, index) {
+        if (index < 0 || index >= this.size) {
+            return;
+        }
+        if (index === 0) {
+            this.prepend(value);
+            return;
+        }
+        let newNode = new Node(value);
+        let current = this.head;
+        for (let i = 0; i < index - 1; ++i) {
+            current = current.next;
+        }
+        newNode.next = current.next;
+        current.next = newNode;
+        ++this.size;
+    }
+
+    toString() {
+        let res = '';
+        let current = this.head;
+        while (current) {
+            res += current.value + ' -> ';
+            current = current.next;
+        }
+
+        return res + 'null';
+    }
+}
